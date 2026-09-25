@@ -57,14 +57,15 @@ test.describe('RoarWPM E2E Tests', () => {
   });
 
 test('should show Caps Lock warning', async ({ page }) => {
-    // Toggle Caps Lock on
-    await page.keyboard.press('CapsLock');
-    
-    // Press a normal key to trigger the keydown event listener 
-    // while the Caps Lock modifier is active in the background
-    await page.keyboard.press('a');
+    // Dispatch a synthetic event directly to the browser to mock the Caps Lock state
+    await page.evaluate(() => {
+      const event = new KeyboardEvent('keydown', { key: 'a', bubbles: true });
+      // Override the event method to force CapsLock to true
+      event.getModifierState = (modifier) => modifier === 'CapsLock';
+      document.dispatchEvent(event);
+    });
     
     // Check if the warning becomes visible
     await expect(page.locator('#capsWarning')).toBeVisible();
-  });
+    });
 });
