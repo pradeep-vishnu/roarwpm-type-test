@@ -67,5 +67,4 @@ test('should show Caps Lock warning', async ({ page }) => {
     // Check if the warning becomes visible
     await expect(page.locator('#capsWarning')).toBeVisible();
   });
-  });
 });
