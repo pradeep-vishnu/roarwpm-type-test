@@ -56,12 +56,16 @@ test.describe('RoarWPM E2E Tests', () => {
     await expect(page.locator('#restartBtn')).toHaveText('Restart');
   });
 
-  test('should show Caps Lock warning', async ({ page }) => {
-    // Turn on CapsLock
-    await page.keyboard.down('CapsLock');
-    await page.keyboard.up('CapsLock');
+test('should show Caps Lock warning', async ({ page }) => {
+    // Toggle Caps Lock on
+    await page.keyboard.press('CapsLock');
+    
+    // Press a normal key to trigger the keydown event listener 
+    // while the Caps Lock modifier is active in the background
+    await page.keyboard.press('a');
     
     // Check if the warning becomes visible
     await expect(page.locator('#capsWarning')).toBeVisible();
+  });
   });
 });
