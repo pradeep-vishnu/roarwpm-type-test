@@ -6,7 +6,7 @@ test.describe('RoarWPM E2E Tests', () => {
   
   test.beforeEach(async ({ page }) => {
     // Load the local HTML file directly
-    const filePath = `file://${path.resolve(__dirname, '../index (1).html')}`;
+    const filePath = `file://${path.resolve(__dirname, '../index.html')}`;
     await page.goto(filePath);
   });
 
